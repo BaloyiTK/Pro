@@ -10,8 +10,7 @@ function App() {
   });
   const [showAddForm, setShowAddForm] = useState(false);
 
-  console.log(newProduct)
-
+ 
   useEffect(() => {
     async function fetchProducts() {
       try {
@@ -41,6 +40,7 @@ function App() {
   const handleAddProduct = async () => {
     try {
       const response = await axios.post('https://localhost:7171/api/Products', newProduct);
+      console.log(response)
       setProducts([...products, response.data]);
       setShowAddForm(false);
       setNewProduct({ name: '', price: 0, description: '' }); // Reset the new product form fields
@@ -57,7 +57,7 @@ function App() {
       {showAddForm && (
         <div>
           <h2>Add New Product</h2>
-          <form onSubmit={handleAddProduct}>
+          <form >
             <label>
               Name:
               <input
@@ -82,7 +82,7 @@ function App() {
                 onChange={(e) => setNewProduct({ ...newProduct, description: e.target.value })}
               />
             </label>
-            <button type="submit">Submit</button>
+            <button type="button" onClick={handleAddProduct}>Submit</button>
           </form>
         </div>
       )}
